@@ -1,10 +1,297 @@
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nouveau pain</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nouveau Pain</title>
+  <style>
+    :root{
+      --ci-orange: #F77F00; /* orange */
+      --ci-white:  #ffffff; /* blanc */
+      --ci-green:  #2A9D8F; /* vert (un vert agréable, proche du drapeau) */
+      --dark: #222;
+      --muted: #666;
+      --radius: 12px;
+      --gap: 1.25rem;
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* Reset léger */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; background: #f7f7f7; color: var(--dark); }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg, var(--ci-orange) 0 33.33%, var(--ci-white) 33.33% 66.66%, var(--ci-green) 66.66% 100%);
+      padding: 0.6rem 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--gap);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .flag {
+      width: 44px;
+      height: 28px;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .flag > i {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--ci-orange) 0 33.33%, var(--ci-white) 33.33% 66.66%, var(--ci-green) 66.66% 100%);
+    }
+    .brand h1 {
+      font-size: 1.05rem;
+      color: #111;
+      letter-spacing: .3px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    nav a {
+      text-decoration: none;
+      color: rgba(17,17,17,0.9);
+      font-weight: 600;
+      padding: .4rem .6rem;
+      border-radius: 8px;
+    }
+    nav a:hover { background: rgba(255,255,255,0.25); }
+
+    /* Bannière / Hero */
+    .hero {
+      max-width: 1100px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(20,20,20,0.05);
+    }
+    .hero h2 {
+      color: var(--dark);
+      font-size: 1.6rem;
+      margin-bottom: .6rem;
+    }
+    .hero p {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .cta {
+      display: inline-block;
+      padding: .7rem 1rem;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--ci-orange), var(--ci-green));
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(42,157,143,0.15);
+    }
+
+    /* Petit encadré droit avec image simulée */
+    .hero-preview {
+      background: repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0 8px, transparent 8px 16px);
+      border-radius: var(--radius);
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-weight: 600;
+      border: 2px solid #fff;
+    }
+
+    /* Bloc services */
+    .services {
+      max-width: 1100px;
+      margin: 1.5rem auto 3rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .service-card {
+      background: linear-gradient(180deg, white, #fbfbfb);
+      padding: 1.25rem;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(17,17,17,0.04);
+      border-left: 6px solid transparent;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(17,17,17,0.08);
+    }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-bottom: .8rem;
+      color: white;
+    }
+    .s1 .service-icon { background: var(--ci-orange); }
+    .s2 .service-icon { background: var(--ci-green); }
+    .s3 .service-icon { background: linear-gradient(90deg,var(--ci-orange),var(--ci-green)); }
+
+    .service-card h3 { margin-bottom: .45rem; font-size: 1.05rem; }
+    .service-card p { color: var(--muted); font-size: .95rem; line-height: 1.4; }
+
+    /* Footer */
+    footer {
+      background: #111;
+      color: #ddd;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .footer-brand { display: flex; gap: .75rem; align-items: center; }
+    .footer-brand h3 { color: white; font-size: 1.05rem; }
+    .footer-col { min-width: 180px; color: #bbb; }
+    .footer-col h4 { color: #fff; margin-bottom: .5rem; }
+    .socials { display: flex; gap: .5rem; margin-top: .5rem; }
+    .pill {
+      display:inline-block;
+      padding:.4rem .6rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg,var(--ci-orange),var(--ci-green));
+      color: white;
+      font-weight: 700;
+      font-size: .85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero { grid-template-columns: 1fr; }
+      .services { grid-template-columns: 1fr; }
+      .nav { flex-direction: column; align-items: stretch; gap: .75rem; }
+      nav ul { justify-content: center; }
+      .footer-inner { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-    
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav" role="navigation" aria-label="Navigation principale">
+      <div class="brand">
+        <div class="flag" aria-hidden="true"><i></i></div>
+        <div>
+          <h1>Nouveau Pain</h1>
+          <div style="font-size:0.78rem;color:rgba(17,17,17,.6)">Boulangerie & savoir-faire local</div>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- BANNIÈRE / HERO -->
+  <main>
+    <section class="hero" id="accueil" aria-label="Bannière principale">
+      <div class="hero-card">
+        <h2>Le goût d'ici, la chaleur d'accueil</h2>
+        <p>Chez <strong>Nouveau Pain</strong> nous utilisons des recettes inspirées de nos traditions pour fournir du pain frais chaque jour. Qualité, proximité et passion — c'est notre promesse.</p>
+        <p><a class="cta" href="#services">Découvrir nos services</a></p>
+        <ul style="margin-top:1rem;color:var(--muted);font-size:.95rem;line-height:1.6">
+          <li>Livraison locale</li>
+          <li>Ateliers de boulangerie</li>
+          <li>Commandes pour événements</li>
+        </ul>
+      </div>
+
+      <aside class="hero-preview" aria-hidden="true">
+        Image / photo produit (espace démo)
+      </aside>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="services" aria-label="Nos services">
+      <article class="service-card s1" aria-labelledby="s1-title">
+        <div class="service-icon">🍞</div>
+        <h3 id="s1-title">Pain artisanal</h3>
+        <p>Pains au levain, baguettes croustillantes et spécialités locales préparées chaque matin.</p>
+      </article>
+
+      <article class="service-card s2" aria-labelledby="s2-title">
+        <div class="service-icon">🚚</div>
+        <h3 id="s2-title">Livraison rapide</h3>
+        <p>Commande en ligne et livraison dans la journée pour les quartiers proches.</p>
+      </article>
+
+      <article class="service-card s3" aria-labelledby="s3-title">
+        <div class="service-icon">🎓</div>
+        <h3 id="s3-title">Ateliers & formation</h3>
+        <p>Ateliers hebdomadaires pour apprendre le levain et les techniques de pétrissage.</p>
+      </article>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="flag" style="width:42px;height:26px"><i></i></div>
+        <div>
+          <h3>Nouveau Pain</h3>
+          <div style="color:#bbb;font-size:.95rem">Abidjan — Côte d'Ivoire</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div>Email: contact@nouveaupain.ci</div>
+        <div>Tél: +225 07 XX XX XX XX</div>
+        <div style="margin-top:.5rem"><span class="pill">Ouvert : 06h - 18h</span></div>
+      </div>
+
+      <div class="footer-col" aria-hidden="false">
+        <h4>Réseaux</h4>
+        <div class="socials">
+          <div class="pill" style="padding:.35rem .6rem">FB</div>
+          <div class="pill" style="padding:.35rem .6rem">IG</div>
+          <div class="pill" style="padding:.35rem .6rem">WA</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
